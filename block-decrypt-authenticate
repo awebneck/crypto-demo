@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+require 'openssl'
+require 'base64'
+
+ciphertext = Base64.strict_decode64(ARGV[0])
+key = Base64.strict_decode64(ARGV[1])
+iv = Base64.strict_decode64(ARGV[2])
+tag = ARGV[3]
+
+hmac = OpenSSL::HMAC.new key, OpenSSL::Digest::SHA512.new
+hmac << ciphertext
+if hmac.to_s == tag
+  puts "Verified!"
+
+  decipher = OpenSSL::Cipher::AES128.new :CBC
+
+  decipher.decrypt
+  decipher.key = key
+  decipher.iv = iv
+
+  plaintext = decipher.update(ciphertext) + decipher.final
+
+  puts "Plaintext: #{plaintext}"
+else
+  puts "Not Verified!"
+end
