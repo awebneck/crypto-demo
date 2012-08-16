@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+require 'openssl'
+require 'securerandom'
+require 'base64'
+
+message = ARGV[0]
+key = SecureRandom.random_bytes(message.length)
+
+hmac = OpenSSL::HMAC.new key, OpenSSL::Digest::SHA512.new
+
+hmac << message
+
+puts "Key: #{Base64.encode64 key}"
+puts "Tag: #{hmac.to_s}"

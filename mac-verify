@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require 'openssl'
+require 'securerandom'
+require 'base64'
+
+message = ARGV[0]
+key = Base64.decode64(ARGV[1])
+tag = ARGV[2]
+
+hmac = OpenSSL::HMAC.new key, OpenSSL::Digest::SHA512.new
+
+hmac << message
+
+if tag == hmac.to_s
+  puts "Verified!"
+else
+  puts "Not Verified!"
+end
