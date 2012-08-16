@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+require 'openssl'
+require 'base64'
+
+ciphertext = [ARGV[0]].pack("H*")
+key = Base64.strict_decode64(ARGV[1])
+decipher = OpenSSL::Cipher::AES128.new :ECB
+
+decipher.decrypt
+decipher.key = key
+
+plaintext = decipher.update(ciphertext) + decipher.final
+
+puts "Plaintext: #{plaintext}"

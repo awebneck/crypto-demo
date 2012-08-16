@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+require 'openssl'
+require 'base64'
+
+message = ARGV[0]
+cipher = OpenSSL::Cipher::AES128.new :ECB
+
+cipher.encrypt
+if ARGV[1]
+  key = cipher.key = Base64.strict_decode64(ARGV[1])
+else
+  key = cipher.random_key
+end
+
+ciphertext = cipher.update(message) + cipher.final
+puts "Key: #{Base64.strict_encode64(key)}"
+puts "Ciphertext: #{Base64.strict_encode64(ciphertext)}"

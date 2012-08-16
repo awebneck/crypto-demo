@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+require 'openssl'
+require 'base64'
+
+ciphertext = Base64.decode64(ARGV[0])
+keyloc = "#{File.dirname(__FILE__)}/keys/#{ARGV[1]}"
+
+pkey = OpenSSL::PKey::RSA.new File.read keyloc
+
+plaintext = pkey.private_decrypt ciphertext
+
+puts "Plaintext: #{plaintext}"

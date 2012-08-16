@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require 'securerandom'
+require 'base64'
+
+message = ARGV[0]
+key = SecureRandom.random_bytes(message.length)
+ciphertext = ""
+
+# XOR each byte of the message with the corresponding
+# byte of the key
+i = 0
+message.each_byte do |b|
+  ciphertext << (b^key[i].ord).chr
+  i += 1
+end
+
+puts "Key:        #{Base64.strict_encode64 key}"
+puts "Ciphertext: #{Base64.strict_encode64 ciphertext}"

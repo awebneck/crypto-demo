@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+require 'openssl'
+require 'base64'
+
+message = ARGV[0]
+keyloc = "#{File.dirname(__FILE__)}/keys/#{ARGV[1]}"
+keysize = ARGV[2].to_i if ARGV[2]
+
+if File.exists? keyloc
+  pubkey = OpenSSL::PKey::RSA.new File.read "#{keyloc}.pub"
+else
+  key = OpenSSL::PKey::RSA.new keysize
+  File.open keyloc, 'w' do |f|
+    f.write key.to_pem(OpenSSL::Cipher::AES128.new(:CBC), ARGV[3])
+  end
+  File.open "#{keyloc}.pub", 'w' do |f|
+    f.write key.public_key.to_pem
+  end
+  pubkey = key.public_key
+end
+
+ciphertext = pubkey.public_encrypt message
+
+puts "Ciphertext: #{Base64.strict_encode64 ciphertext}"

@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+require 'securerandom'
+require 'base64'
+
+ciphertext = Base64.strict_decode64(ARGV[0])
+key = Base64.strict_decode64(ARGV[1])
+message = ""
+
+# XOR each byte of the ciphertext with the corresponding
+# byte of the key
+i = 0
+ciphertext.each_byte do |b|
+  message << (b^key[i].ord).chr
+  i += 1
+end
+
+puts "Plaintext: #{message}"
