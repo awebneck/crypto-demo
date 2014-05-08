@@ -8,10 +8,8 @@ message = ""
 
 # XOR each byte of the ciphertext with the corresponding
 # byte of the key
-i = 0
-ciphertext.each_byte do |b|
+ciphertext.each_byte.with_index do |b, i|
   message << (b^key[i].ord).chr
-  i += 1
 end
 
 puts "Plaintext: #{message}"

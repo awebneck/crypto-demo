@@ -1,0 +1,43 @@
+greetings
+who I am
+what I do
+math nerdery
+as little math as possible
+caveats
+  rules of crypto
+  no security through obscurity
+  security in the key, not the algorithm
+  sidechannels - why it's hard
+  cryptographers are people - heartbleed
+what is crypto
+  purposes of crypto
+  confidentiality
+  authenticity
+  integrity
+  non-repudiation
+history
+  scytale
+  caesar cipher
+  vigenere cipher
+  modular arithmetic
+  one-time pads
+  polyalphabetic ciphers - turing & enigma
+modern methods
+  hashing
+    hard to find a message that generates a given hash
+    hard to find two messages that generate the same hash - birthday paradox
+    hard to change a message without changing the hash
+    attacks and salting
+  symmetric ciphers
+    XOR - example
+    PRNGs - example
+    stream ciphers - example
+    block ciphers - example
+      modes
+        ECB
+        CBC
+        CTR
+  asymmetric ciphers
+    merkel puzzles
+    diffie-hellman
+    RSA

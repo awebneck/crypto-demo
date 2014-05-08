@@ -8,10 +8,8 @@ ciphertext = ""
 
 # XOR each byte of the message with the corresponding
 # byte of the key
-i = 0
-message.each_byte do |b|
+message.each_byte.with_index do |b, i|
   ciphertext << (b^key[i].ord).chr
-  i += 1
 end
 
 puts "Key:        #{Base64.strict_encode64 key}"

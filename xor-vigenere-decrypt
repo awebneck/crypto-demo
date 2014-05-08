@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+require 'base64'
+
+key = ARGV[0]
+ciphertext = Base64.strict_decode64 ARGV[1]
+message = ""
+
+ciphertext.each_byte.with_index do |b, i|
+  message << (b^key[i % key.length].ord).chr
+end
+
+puts "Message: #{message}"

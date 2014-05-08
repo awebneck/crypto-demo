@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+char1 = ARGV[0]
+char2 = ARGV[1]
+xor = (char1.ord ^ char2.ord).chr
+puts "#{char1} XOR #{char2} = #{xor}"
